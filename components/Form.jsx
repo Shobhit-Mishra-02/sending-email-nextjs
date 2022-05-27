@@ -4,8 +4,19 @@ const Form = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  const sendMail = () => {
-    console.log("sending mail...");
+  const sendMail = async () => {
+    const data = await fetch("/api/email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, message }),
+    });
+
+    const json = await data.json();
+
+    setEmail("");
+    setMessage("");
   };
 
   return (
